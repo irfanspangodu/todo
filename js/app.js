@@ -93,36 +93,4 @@ function renderTasks(filter = "all") {
     document.getElementById("taskStats").textContent = `${filtered.length} tasks shown`;
 }
 
-function toggleTheme() {
-    document.body.classList.toggle("dark-mode");
-}
-
-function exportTasks() {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(tasks));
-    const link = document.createElement("a");
-    link.setAttribute("href", dataStr);
-    link.setAttribute("download", "tasks.json");
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-}
-
-function importTasks() {
-    const file = document.getElementById("importFile").files[0];
-    const reader = new FileReader();
-    reader.onload = e => {
-        try {
-            tasks = JSON.parse(e.target.result);
-            saveTasks();
-        } catch {
-            alert("Invalid file");
-        }
-    };
-    reader.readAsText(file);
-}
-
-if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("service-worker.js");
-}
-
 renderTasks();
