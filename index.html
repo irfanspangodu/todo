@@ -10,22 +10,13 @@
     <link rel="stylesheet" href="css/bootstrap.min.css" />
 </head>
 
-<body class="bg-dark">
+<body class="bg-light">
     <div class="container py-4">
-        <h1 class="text-center mb-4 text-white">Todo List</h1>
+        <h1 class="text-center mb-4 text-black">Todo List</h1>
 
         <div class="d-flex flex-wrap responsive-stack mb-3 gap-1">
-            <input 
-                type="text" 
-                id="taskInput" 
-                class="form-control me-2" 
-                placeholder="Add new task..." 
-            />
-            <input 
-                type="date" 
-                id="dueDate" 
-                class="form-control me-2" 
-            />
+            <input type="text" id="taskInput" class="form-control me-2" placeholder="Add new task..." />
+            <input type="date" id="dueDate" class="form-control me-2" />
             <select id="priority" class="form-select me-2">
                 <option value="low">Low</option>
                 <option value="medium" selected>Medium</option>
@@ -33,7 +24,25 @@
             </select>
             <button id="addTaskBtn" class="btn btn-primary mt-2">Add</button>
         </div>
+
+        <div class="mb-3 d-flex flex-wrap gap-2 justify-content-between align-items-center responsive-stack">
+            <div class="btn-group" role="group">
+                <button class="btn btn-outline-secondary" onclick="filterTasks('all')">All</button>
+                <button class="btn btn-outline-secondary" onclick="filterTasks('active')">Active</button>
+                <button class="btn btn-outline-secondary" onclick="filterTasks('completed')">Completed</button>
+            </div>
+            <input type="search" id="searchBox" placeholder="Search tasks..." class="form-control flex-grow-1" />
+        </div>
+
+        <ul id="taskList" class="list-group"></ul>
+
+        <div class="mt-4 d-flex flex-wrap justify-content-between align-items-center gap-2 responsive-stack">
+            <span id="taskStats">0 tasks</span>
+            <button class="btn btn-danger" onclick="clearCompleted()">Clear Completed</button>
+        </div>
     </div>
+
+    <script src="js/app.js"></script>
 </body>
 
 </html>
