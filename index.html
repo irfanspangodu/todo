@@ -1,11 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="#0d6efd" />
+    <title>Todo List</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
 </head>
-<body>
-    
+
+<body class="bg-dark">
+    <div class="container py-4">
+        <h1 class="text-center mb-4 text-white">Todo List</h1>
+
+        <div class="d-flex flex-wrap responsive-stack mb-3 gap-1">
+            <input 
+                type="text" 
+                id="taskInput" 
+                class="form-control me-2" 
+                placeholder="Add new task..." 
+            />
+            <input 
+                type="date" 
+                id="dueDate" 
+                class="form-control me-2" 
+            />
+            <select id="priority" class="form-select me-2">
+                <option value="low">Low</option>
+                <option value="medium" selected>Medium</option>
+                <option value="high">High</option>
+            </select>
+            <button id="addTaskBtn" class="btn btn-primary mt-2">Add</button>
+        </div>
+    </div>
 </body>
+
 </html>
