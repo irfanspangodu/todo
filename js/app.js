@@ -5,78 +5,78 @@ document.getElementById("addTaskBtn").addEventListener("click", addTask);
 document.getElementById("searchBox").addEventListener("input", renderTasks);
 
 function addTask() {
-    const input = document.getElementById("taskInput");
-    const dueDate = document.getElementById("dueDate").value;
-    const priority = document.getElementById("priority").value;
-    if (!input.value.trim()) return;
+  const input = document.getElementById("taskInput");
+  const dueDate = document.getElementById("dueDate").value;
+  const priority = document.getElementById("priority").value;
+  if (!input.value.trim()) return;
 
-    tasks.push({
-        id: Date.now(),
-        text: input.value.trim(),
-        completed: false,
-        dueDate,
-        priority,
-        updated: new Date().toLocaleString()
-    });
+  tasks.push({
+    id: Date.now(),
+    text: input.value.trim(),
+    completed: false,
+    dueDate,
+    priority,
+    updated: new Date().toLocaleString()
+  });
 
-    input.value = "";
-    saveTasks();
+  input.value = "";
+  saveTasks();
 }
 
 function toggleComplete(id) {
-    const task = tasks.find(t => t.id === id);
-    task.completed = !task.completed;
-    task.updated = new Date().toLocaleString();
-    saveTasks();
+  const task = tasks.find(t => t.id === id);
+  task.completed = !task.completed;
+  task.updated = new Date().toLocaleString();
+  saveTasks();
 }
 
 function deleteTask(id) {
-    tasks = tasks.filter(t => t.id !== id);
-    saveTasks();
+  tasks = tasks.filter(t => t.id !== id);
+  saveTasks();
 }
 
 function editTask(id) {
-    const task = tasks.find(t => t.id === id);
-    const newText = prompt("Edit task:", task.text);
-    if (newText) {
-        task.text = newText;
-        task.updated = new Date().toLocaleString();
-        saveTasks();
-    }
+  const task = tasks.find(t => t.id === id);
+  const newText = prompt("Edit task:", task.text);
+  if (newText) {
+    task.text = newText;
+    task.updated = new Date().toLocaleString();
+    saveTasks();
+  }
 }
 
 function filterTasks(filter) {
-    renderTasks(filter);
+  renderTasks(filter);
 }
 
 function clearCompleted() {
-    tasks = tasks.filter(t => !t.completed);
-    saveTasks();
+  tasks = tasks.filter(t => !t.completed);
+  saveTasks();
 }
 
 function saveTasks() {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-    renderTasks();
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+  renderTasks();
 }
 
 function renderTasks(filter = "all") {
-    const list = taskList;
-    list.innerHTML = "";
+  const list = taskList;
+  list.innerHTML = "";
 
-    let filtered = tasks.filter(t => {
-        const search = document.getElementById("searchBox").value.toLowerCase();
-        const match = t.text.toLowerCase().includes(search);
-        if (filter === "active") return !t.completed && match;
-        if (filter === "completed") return t.completed && match;
-        return match;
-    });
+  let filtered = tasks.filter(t => {
+    const search = document.getElementById("searchBox").value.toLowerCase();
+    const match = t.text.toLowerCase().includes(search);
+    if (filter === "active") return !t.completed && match;
+    if (filter === "completed") return t.completed && match;
+    return match;
+  });
 
-    filtered.forEach(task => {
-        const li = document.createElement("li");
-        li.className = `list-group-item d-flex justify-content-between align-items-center ${task.priority}`;
-        if (task.completed) li.classList.add("completed");
+  filtered.forEach(task => {
+    const li = document.createElement("li");
+    li.className = `list-group-item d-flex justify-content-between align-items-center ${task.priority}`;
+    if (task.completed) li.classList.add("completed");
 
-        li.innerHTML = `
+    li.innerHTML = `
       <div>
         <input type="checkbox" ${task.completed ? "checked" : ""} onclick="toggleComplete(${task.id})" />
         <strong>${task.text}</strong>
@@ -87,10 +87,10 @@ function renderTasks(filter = "all") {
         <button class="btn btn-sm btn-outline-danger" onclick="deleteTask(${task.id})">Delete</button>
       </div>
     `;
-        list.appendChild(li);
-    });
+    list.appendChild(li);
+  });
 
-    document.getElementById("taskStats").textContent = `${filtered.length} tasks shown`;
+  document.getElementById("taskStats").textContent = `${filtered.length} tasks shown`;
 }
 
 renderTasks();
